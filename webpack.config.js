@@ -1,9 +1,9 @@
-const HtmlWebPack = require('html-webpack-plugin');
-const MiniCssExtract = require('mini-css-extract-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
+const HtmlWebPack = require("html-webpack-plugin");
+const MiniCssExtract = require("mini-css-extract-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
-  mode: 'development',
+  mode: "development",
 
   output: {
     clean: true,
@@ -13,46 +13,49 @@ module.exports = {
     rules: [
       {
         test: /\.html$/, //Expresión Regular: /\// Busca todos los archivos html de nuestro proyecto
-        loader: 'html-loader',
+        loader: "html-loader",
         options: {
           sources: false,
-        }
+        },
       },
       {
         test: /\.css$/i,
         exclude: /styles.css$/,
-        use: ["style-loader", "css-loader"]
+        use: ["style-loader", "css-loader"],
       },
       {
         test: /styles.css$/,
-        use: [ MiniCssExtract.loader, "css-loader" ]
+        use: [MiniCssExtract.loader, "css-loader"],
       },
       {
         test: /\.(png|jpe?g|gif)$/,
-        loader: 'file-loader'
-      }
-    ]
+        loader: "file-loader",
+      },
+    ],
   },
 
   optimization: {},
 
   plugins: [
     new HtmlWebPack({
-      title: 'Mi Webpack App',
+      title: "Mi Webpack App",
       // filename: 'index.html'
-      template: './src/index.html'
+      template: "./src/index.html",
     }),
 
     new MiniCssExtract({
-      filename: 'styles.css',
-      ignoreOrder: false
+      filename: "styles.css",
+      ignoreOrder: false,
     }),
 
     new CopyPlugin({
       patterns: [
-        {from: 'src/assets', to: 'assets/'}
-      ]
-    }
-    )
+        {
+          from: "src/assets",
+          to: "assets/",
+          noErrorOnMissing: true
+        },
+      ],
+    }),
   ],
-}
+};
